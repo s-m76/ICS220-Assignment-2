@@ -1,0 +1,37 @@
+from A3_File1 import *
+from A3_File2 import *
+
+# Creating objects
+library = Library("Central Library", "lib@central.com", "123-456", "123 Library St.", "PO Box 789")
+employee1 = Employee("Alice", 30, 5.6, 150, "American", "E001", "Librarian", 50000, "Morning")
+employee2 = Employee("Bob", 40, 5.8, 180, "Canadian", "E002", "Manager", 70000, "Evening")
+customer1 = Customer("Charlie", 25, 5.7, 160, "British", "C001", "charlie@gmail.com", "987-654")
+book1 = Book("Python Programming", "B001", "John Doe", "2023-01-01")
+ebook1 = Ebook("Advanced Python", "B002", "Jane Smith", "2023-06-01", "https://ebook.com/advpython")
+price1 = Price(20, 73.4)
+discount1 = Discount(5)
+payment1 = Payment(100, 5, 105)
+cart1 = Cart(2)
+order1 = Order("O123")
+invoice1 = Invoice("I001")
+
+# Creating an Operations object
+operations = Operations()
+
+# Adding employees to library and books to customer
+operations.add_employee(library, employee1)
+operations.add_employee(library, employee2)
+operations.add_book_to_customer(customer1, book1)
+
+# Adding books to the library
+library.add_book(book1)
+
+# Adding ebooks to the cart
+cart1.add_ebook(ebook1)
+
+# Modifying an employee's information
+operations.modify_employee(employee1, salary=55000)
+
+# Displaying information
+operations.display_employees(library)
+operations.display_customer_books(customer1)

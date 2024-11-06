@@ -1,0 +1,101 @@
+class Person:
+    '''Opening class for Person'''
+    def __init__(self, name, age, height, weight, nationality):
+        self._name = name  # Protected
+        self._age = age  # Protected
+        self._height = height  # Protected
+        self._weight = weight  # Protected
+        self._nationality = nationality  # Protected
+
+class Employee(Person):
+    '''Opening class for Employee'''
+    def __init__(self, name, age, height, weight, nationality, eID, position, salary, shift):
+        Person.__init__(self, name, age, height, weight, nationality)
+        self.__eID = eID  # Private
+        self.__position = position  # Private
+        self.__salary = salary  # Private
+        self.__shift = shift  # Private
+
+class Customer(Person):
+    '''Opening class for Customer'''
+    def __init__(self, name, age, height, weight, nationality, cID, cEmail, cPhoneNum):
+        Person.__init__(self, name, age, height, weight, nationality)
+        self.__cID = cID  # Private
+        self.__cEmail = cEmail  # Private
+        self.__cPhoneNum = cPhoneNum  # Private
+        self.books = []  # Aggregation: Customer can own many books
+
+class Book:
+    '''Opening class for Book'''
+    def __init__(self, bTitle, bSerialNum, bAuthorName, bPublishDate):
+        self.__bTitle = bTitle  # Private
+        self.__bSerialNum = bSerialNum  # Private
+        self.__bAuthorName = bAuthorName  # Private
+        self.__bPublishDate = bPublishDate  # Private
+        self.price = None  # Book has a price, to be associated with the Price class
+
+class Library:
+    '''Opening class for Library'''
+    def __init__(self, lName, lEmail, lTelNum, lAddress, lPoBox):
+        self.__lName = lName  # Private
+        self.__lEmail = lEmail  # Private
+        self.__lTelNum = lTelNum  # Private
+        self.__lAddress = lAddress  # Private
+        self.__lPoBox = lPoBox  # Private
+        self.employees = []
+        self.books = []  # Aggregation: Library contains many books
+
+    def add_book(self, book): # Method to add books to the Library
+        self.books.append(book)
+
+class Price:
+    '''Opening class for Price'''
+    def __init__(self, pUSD, pAED):
+        self.__pUSD = pUSD  # Private
+        self.__pAED = pAED  # Private
+
+class Ebook(Book):
+    '''Opening class for Ebook'''
+    def __init__(self, bTitle, bSerialNum, bAuthorName, bPublishDate, ebURL):
+        Book.__init__(self, bTitle, bSerialNum, bAuthorName, bPublishDate)
+        self.__ebURL = ebURL  # Private
+
+class Cart:
+    '''Opening class for Cart'''
+    def __init__(self, bkQuantity):
+        self.__bkQuantity = bkQuantity  # Private
+        self.ebooks = []  # Aggregation: Cart can contain multiple e-books
+
+    def add_ebook(self, ebook): # Method to add ebooks to the cart
+        self.ebooks.append(ebook)
+
+class Order:
+    '''Opening class for Order'''
+    def __init__(self, oNum):
+        self.__oNum = oNum  # Private
+        # Composition: Cart and Invoice are created within the Order class
+        self.cart = Cart(0)  
+        self.invoice = Invoice("I001")  
+
+class Invoice:
+    '''Opening class for Invoice'''
+    def __init__(self, iNum):
+        self.__iNum = iNum  # Private
+        # Composition: Payment and Discount are created within the Invoice class
+        self.payment = Payment(0, 0, 0)  
+        self.discount = Discount(0)  
+
+class Discount:
+    '''Opening class for Discount'''
+    def __init__(self, dAmount):
+        self.__dAmount = dAmount  # Private
+
+class Payment:
+    '''Opening class for Payment'''
+    def __init__(self, subTotal, taxAmount, grandTotal):
+        self.__subTotal = subTotal  # Private
+        self.__taxAmount = taxAmount  # Private
+        self.__grandTotal = grandTotal  # Private
+        # Composition: Price and Discount are created within the Payment class
+        self.price = Price(0, 0)  
+        self.discount = Discount(0)  

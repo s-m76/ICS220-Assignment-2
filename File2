@@ -1,0 +1,62 @@
+from A3_File1 import *
+
+class Operations:
+    # Method to add an employee to a library
+    # Takes a library and an employee object as arguments
+    def add_employee(self, library, employee):
+        # Adds the employee to the library's list of employees
+        library.employees.append(employee)
+
+    # Method to delete an employee from a library based on employee ID
+    # Takes a library and an employee ID as arguments
+    def delete_employee(self, library, employee_id):
+        # Filters out the employee with the matching ID from the library's employee list
+        library.employees = [emp for emp in library.employees if emp._Employee__eID != employee_id]
+
+    # Method to modify attributes of an existing employee
+    # Takes an employee object and key-value pairs of attributes to modify
+    def modify_employee(self, employee, **kwargs):
+        # Iterates over each provided attribute and value in kwargs
+        for key, value in kwargs.items():
+            # Checks if the attribute exists as a private attribute in the Employee class
+            # Updates the attribute with the new value if it exists
+            if hasattr(employee, "_Employee__" + key):
+                setattr(employee, "_Employee__" + key, value)
+
+    # Method to display details of all employees in a library
+    # Takes a library object as an argument
+    def display_employees(self, library):
+        # Loops through each employee in the library's employees list
+        for emp in library.employees:
+            # Prints the employee's ID and name
+            print("ID:", emp._Employee__eID, "Name:", emp._name)
+
+    # Method to add a book to a customer's collection
+    # Takes a customer object and a book object as arguments
+    def add_book_to_customer(self, customer, book):
+        # Adds the book to the customer's list of books
+        customer.books.append(book)
+
+    # Method to remove a book from a customer's collection based on book serial number
+    # Takes a customer object and a book's serial number as arguments
+    def remove_book_from_customer(self, customer, serial_num):
+        # Filters out the book with the matching serial number from the customer's books list
+        customer.books = [bk for bk in customer.books if bk._Book__bSerialNum != serial_num]
+
+    # Method to modify attributes of an existing book
+    # Takes a book object and key-value pairs of attributes to modify
+    def modify_book(self, book, **kwargs):
+        # Iterates over each provided attribute and value in kwargs
+        for key, value in kwargs.items():
+            # Checks if the attribute exists as a private attribute in the Book class
+            # Updates the attribute with the new value if it exists
+            if hasattr(book, "_Book__" + key):
+                setattr(book, "_Book__" + key, value)
+
+    # Method to display details of all books owned by a customer
+    # Takes a customer object as an argument
+    def display_customer_books(self, customer):
+        # Loops through each book in the customer's books list
+        for bk in customer.books:
+            # Prints the book's title and serial number
+            print("Title:", bk._Book__bTitle, "Serial Number:", bk._Book__bSerialNum)
